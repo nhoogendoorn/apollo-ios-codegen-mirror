@@ -1271,7 +1271,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   // MARK: - Helper Properties
   
-  let ApolloAPITargetName: String
+  public let ApolloAPITargetName: String
 
   // MARK: Initializers
 
