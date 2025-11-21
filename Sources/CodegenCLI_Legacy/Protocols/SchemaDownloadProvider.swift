@@ -1,5 +1,5 @@
 import Foundation
-import ApolloCodegenLib
+import ApolloCodegenLib_Legacy
 
 /// Generic representation of a schema download provider.
 public protocol SchemaDownloadProvider {

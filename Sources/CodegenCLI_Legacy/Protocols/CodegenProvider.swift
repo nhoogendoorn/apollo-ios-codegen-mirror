@@ -1,5 +1,5 @@
 import Foundation
-import ApolloCodegenLib
+import ApolloCodegenLib_Legacy
 
 /// Generic representation of a code generation provider.
 public protocol CodegenProvider {

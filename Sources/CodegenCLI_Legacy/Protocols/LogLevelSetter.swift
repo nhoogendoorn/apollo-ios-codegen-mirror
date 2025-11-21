@@ -1,4 +1,4 @@
-import ApolloCodegenLib
+import ApolloCodegenLib_Legacy
 
 public protocol LogLevelSetter {
   static func SetLoggingLevel(verbose: Bool)

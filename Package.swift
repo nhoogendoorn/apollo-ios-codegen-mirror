@@ -6,14 +6,14 @@
 import PackageDescription
 
 let package = Package(
-  name: "ApolloCodegen",
+  name: "ApolloCodegen_Legacy",
   platforms: [
     .macOS(.v12)
   ],
   products: [
-    .library(name: "ApolloCodegenLib", targets: ["ApolloCodegenLib"]),
-    .library(name: "CodegenCLI", targets: ["CodegenCLI"]),
-    .executable(name: "apollo-ios-cli", targets: ["apollo-ios-cli"]),
+    .library(name: "ApolloCodegenLib_Legacy", targets: ["ApolloCodegenLib_Legacy"]),
+    .library(name: "CodegenCLI_Legacy", targets: ["CodegenCLI_Legacy"]),
+    .executable(name: "apollo-ios-cli-legacy", targets: ["apollo-ios-cli-legacy"]),
   ],
   dependencies: [
     .package(
@@ -28,7 +28,7 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "ApolloCodegenLib",
+      name: "ApolloCodegenLib_Legacy",
       dependencies: [
         "GraphQLCompiler",
         "IR",
@@ -70,9 +70,9 @@ let package = Package(
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .executableTarget(
-      name: "apollo-ios-cli",
+      name: "apollo-ios-cli-legacy",
       dependencies: [
-        "CodegenCLI",
+        "CodegenCLI_Legacy",
       ],
       exclude: [
         "README.md",
@@ -80,9 +80,9 @@ let package = Package(
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "CodegenCLI",
+      name: "CodegenCLI_Legacy",
       dependencies: [
-        "ApolloCodegenLib",
+        "ApolloCodegenLib_Legacy",
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
       ],
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]

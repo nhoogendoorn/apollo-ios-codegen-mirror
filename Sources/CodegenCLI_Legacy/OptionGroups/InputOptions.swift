@@ -1,6 +1,6 @@
 import Foundation
 import ArgumentParser
-import ApolloCodegenLib
+import ApolloCodegenLib_Legacy
 
 /// Shared group of common arguments used in commands for input parameters.
 struct InputOptions: ParsableArguments {

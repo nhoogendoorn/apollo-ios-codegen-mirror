@@ -1,6 +1,6 @@
 import Foundation
 import ArgumentParser
-import ApolloCodegenLib
+import ApolloCodegenLib_Legacy
 
 public struct FetchSchema: AsyncParsableCommand {
 
