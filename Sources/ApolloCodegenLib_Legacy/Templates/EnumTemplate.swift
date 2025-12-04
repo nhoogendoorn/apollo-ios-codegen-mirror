@@ -1,6 +1,6 @@
 import Foundation
-import GraphQLCompiler
-import TemplateString
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 /// Provides the format to convert a [GraphQL Enum](https://spec.graphql.org/draft/#sec-Enums) into
 /// Swift code.

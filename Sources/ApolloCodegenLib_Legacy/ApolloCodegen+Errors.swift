@@ -1,7 +1,7 @@
 import Foundation
-import TemplateString
+import TemplateString_Legacy
 import OrderedCollections
-import IR
+import IR_Legacy
 
 extension ApolloCodegen {
   /// Errors that can occur during code generation. These are fatal errors that prevent the code

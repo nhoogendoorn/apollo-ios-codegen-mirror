@@ -1,7 +1,7 @@
 import Foundation
 import OrderedCollections
-import GraphQLCompiler
-import TemplateString
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 struct MockInterfacesTemplate: TemplateRenderer {
 

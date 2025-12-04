@@ -1,6 +1,6 @@
 import OrderedCollections
-import TemplateString
-import GraphQLCompiler
+import TemplateString_Legacy
+import GraphQLCompiler_Legacy
 
 extension GraphQLValue {
   func renderInputValueLiteral() -> TemplateString {

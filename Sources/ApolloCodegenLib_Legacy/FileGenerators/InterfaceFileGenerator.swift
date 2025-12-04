@@ -1,5 +1,5 @@
 import Foundation
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 /// Generates a file containing the Swift representation of a [GraphQL Interface](https://spec.graphql.org/draft/#sec-Interfaces).
 struct InterfaceFileGenerator: FileGenerator {

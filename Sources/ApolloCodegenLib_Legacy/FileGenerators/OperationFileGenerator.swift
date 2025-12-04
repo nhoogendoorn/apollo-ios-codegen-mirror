@@ -1,10 +1,10 @@
 import Foundation
-import IR
+import IR_Legacy
 
 /// Generates a file containing the Swift representation of a [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
 struct OperationFileGenerator: FileGenerator {
   /// Source IR operation.
-  let irOperation: IR.Operation
+  let irOperation: IR_Legacy.Operation
   /// The persisted query identifier for the ``operation``.
   let operationIdentifier: String?
   /// Shared codegen configuration

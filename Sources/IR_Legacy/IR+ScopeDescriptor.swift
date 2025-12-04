@@ -1,7 +1,7 @@
 import Foundation
 import OrderedCollections
-import GraphQLCompiler
-import Utilities
+import GraphQLCompiler_Legacy
+import Utilities_Legacy
 
 public struct ScopeCondition: Hashable, CustomDebugStringConvertible {
   public let type: GraphQLCompositeType?
@@ -33,7 +33,7 @@ public struct ScopeCondition: Hashable, CustomDebugStringConvertible {
 
 public typealias TypeScope = OrderedSet<GraphQLCompositeType>
 
-/// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the entity the
+/// Defines the scope for an `IR_Legacy.SelectionSet`. The "scope" indicates where in the entity the
 /// selection set is located, what types the `SelectionSet` implements, and what inclusion
 /// conditions it requires.
 public struct ScopeDescriptor: Hashable, CustomDebugStringConvertible {

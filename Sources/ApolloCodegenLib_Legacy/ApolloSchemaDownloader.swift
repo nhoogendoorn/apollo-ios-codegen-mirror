@@ -1,5 +1,5 @@
 import Foundation
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 // Only available on macOS
 #if os(macOS)

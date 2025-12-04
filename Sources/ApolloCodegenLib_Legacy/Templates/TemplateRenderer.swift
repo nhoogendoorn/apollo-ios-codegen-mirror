@@ -1,4 +1,4 @@
-import TemplateString
+import TemplateString_Legacy
 import OrderedCollections
 
 // MARK: TemplateRenderer

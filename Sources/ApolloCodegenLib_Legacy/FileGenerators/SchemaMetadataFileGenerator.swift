@@ -1,11 +1,11 @@
 import Foundation
-import IR
+import IR_Legacy
 import OrderedCollections
 
 /// Generates a file containing schema metadata used by the GraphQL executor at runtime.
 struct SchemaMetadataFileGenerator: FileGenerator {
   /// Source IR schema.
-  let schema: IR.Schema
+  let schema: IR_Legacy.Schema
   /// Shared codegen configuration
   let config: ApolloCodegen.ConfigurationContext
 

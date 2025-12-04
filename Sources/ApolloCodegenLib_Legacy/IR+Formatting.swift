@@ -1,8 +1,8 @@
 import Foundation
-import GraphQLCompiler
-import IR
+import GraphQLCompiler_Legacy
+import IR_Legacy
 
-extension GraphQLCompiler.GraphQLType {
+extension GraphQLCompiler_Legacy.GraphQLType {
 
   var isListType: Bool {
     switch self {
@@ -14,21 +14,21 @@ extension GraphQLCompiler.GraphQLType {
   
 }
 
-extension IR.EntityField {
+extension IR_Legacy.EntityField {
 
-  /// Takes the associated `IR.EntityField` and formats it into a selection set name
+  /// Takes the associated `IR_Legacy.EntityField` and formats it into a selection set name
   func formattedSelectionSetName(
     with pluralizer: Pluralizer
   ) -> String {
-    IR.Entity.Location.FieldComponent(name: responseKey, type: type)
+    IR_Legacy.Entity.Location.FieldComponent(name: responseKey, type: type)
       .formattedSelectionSetName(with: pluralizer)
   }
 
 }
 
-extension IR.Entity.Location.FieldComponent {
+extension IR_Legacy.Entity.Location.FieldComponent {
 
-  /// Takes the associated `IR.Entity.Location.FieldComponent` and formats it into a selection set name
+  /// Takes the associated `IR_Legacy.Entity.Location.FieldComponent` and formats it into a selection set name
   func formattedSelectionSetName(
     with pluralizer: Pluralizer
   ) -> String {
@@ -41,9 +41,9 @@ extension IR.Entity.Location.FieldComponent {
 
 }
 
-extension IR.Entity.Location.SourceDefinition {
+extension IR_Legacy.Entity.Location.SourceDefinition {
 
-  /// Takes the associated `IR.Entity.Location.SourceDefinition` and formats it into a selection set name
+  /// Takes the associated `IR_Legacy.Entity.Location.SourceDefinition` and formats it into a selection set name
   func formattedSelectionSetName() -> String {
     switch self {
     case .operation: return "Data"

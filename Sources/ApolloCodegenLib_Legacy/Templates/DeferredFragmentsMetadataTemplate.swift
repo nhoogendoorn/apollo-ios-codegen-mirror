@@ -1,15 +1,15 @@
-import GraphQLCompiler
-import IR
-import TemplateString
+import GraphQLCompiler_Legacy
+import IR_Legacy
+import TemplateString_Legacy
 
 struct DeferredFragmentsMetadataTemplate {
 
-  let operation: IR.Operation
+  let operation: IR_Legacy.Operation
   let config: ApolloCodegen.ConfigurationContext
   let renderAccessControl: () -> String
 
   init(
-    operation: IR.Operation,
+    operation: IR_Legacy.Operation,
     config: ApolloCodegen.ConfigurationContext,
     renderAccessControl: @autoclosure @escaping () -> String
   ) {

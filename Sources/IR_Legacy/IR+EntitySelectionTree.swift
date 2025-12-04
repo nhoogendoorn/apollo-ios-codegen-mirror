@@ -1,7 +1,7 @@
 import OrderedCollections
-import GraphQLCompiler
-import TemplateString
-import Utilities
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
+import Utilities_Legacy
 
 /// Represents the selections for an entity at different nested type scopes in a tree.
 ///
@@ -335,14 +335,14 @@ class EntitySelectionTree {
     }
 
     private static func addFragment(
-      _ fragment: IR.NamedFragmentSpread,
+      _ fragment: IR_Legacy.NamedFragmentSpread,
       toMergedSourcesOf selections: Selections
     ) -> Selections {
       var newSelections = Selections()
 
       for source in selections.keys {
         let newSource = source.fragment != nil ? source :
-        IR.MergedSelections.MergedSource(
+        IR_Legacy.MergedSelections.MergedSource(
           typeInfo: source.typeInfo, fragment: fragment.fragment
         )
 
@@ -471,7 +471,7 @@ extension EntitySelectionTree {
   /// programming error and will result in undefined behavior.
   func mergeIn(
     _ otherTree: EntitySelectionTree,
-    from fragmentSpread: IR.NamedFragmentSpread
+    from fragmentSpread: IR_Legacy.NamedFragmentSpread
   ) {
     let otherTreeCount = otherTree.rootTypePath.count
     let diffToRoot = rootTypePath.count - otherTreeCount
@@ -507,7 +507,7 @@ extension EntitySelectionTree.EntityNode {
 
   fileprivate func mergeIn(
     _ fragmentTree: EntitySelectionTree,
-    from fragmentSpread: IR.NamedFragmentSpread
+    from fragmentSpread: IR_Legacy.NamedFragmentSpread
   ) {
     let rootNodeToStartMerge = findOrCreate(
       fromFragmentScopeNode: fragmentSpread.typeInfo.scopePath.last.value.scopePath.head,

@@ -1,7 +1,7 @@
 import Foundation
 import OrderedCollections
-import IR
-import GraphQLCompiler
+import IR_Legacy
+import GraphQLCompiler_Legacy
 
 protocol OperationManifestTemplate {
   /// A tuple representing an operation in an operation manifest.

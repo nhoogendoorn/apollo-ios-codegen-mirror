@@ -1,4 +1,4 @@
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 public actor FieldCollector {
 

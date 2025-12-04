@@ -1,4 +1,4 @@
-import TemplateString
+import TemplateString_Legacy
 
 extension TemplateString.StringInterpolation {
 

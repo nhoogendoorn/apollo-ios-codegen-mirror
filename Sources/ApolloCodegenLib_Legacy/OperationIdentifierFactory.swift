@@ -1,6 +1,6 @@
 import Foundation
-import IR
-import GraphQLCompiler
+import IR_Legacy
+import GraphQLCompiler_Legacy
 import CryptoKit
 
 /// An async closure used to compute the operation identifiers for operations

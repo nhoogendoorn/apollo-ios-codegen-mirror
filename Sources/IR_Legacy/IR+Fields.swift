@@ -1,7 +1,7 @@
 import Foundation
 import OrderedCollections
-import GraphQLCompiler
-import TemplateString
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 public class Field: Equatable, CustomDebugStringConvertible {
   public let underlyingField: CompilationResult.Field

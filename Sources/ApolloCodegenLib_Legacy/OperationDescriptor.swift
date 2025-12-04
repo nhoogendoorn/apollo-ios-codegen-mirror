@@ -1,5 +1,5 @@
-import IR
-import GraphQLCompiler
+import IR_Legacy
+import GraphQLCompiler_Legacy
 
 public struct OperationDescriptor: Sendable {
   public enum OperationType: String, Hashable {

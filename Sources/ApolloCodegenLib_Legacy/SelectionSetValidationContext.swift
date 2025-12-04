@@ -1,4 +1,4 @@
-import IR
+import IR_Legacy
 
 /// A struct that validates that there are no type name conflicts while generating SelectionSet
 /// objects.
@@ -16,7 +16,7 @@ struct SelectionSetValidationContext {
   }
 
   mutating func runTypeValidationFor(
-    _ selections: IR.ComputedSelectionSet,
+    _ selections: IR_Legacy.ComputedSelectionSet,
     recordingErrorsTo errorRecorder: ApolloCodegen.NonFatalError.Recorder
   ) {
     var locationName: String {
@@ -31,11 +31,11 @@ struct SelectionSetValidationContext {
     var typeNamesForEntityFields = [String: String]()
 
     let entityFields = selections.makeFieldIterator() { field in
-      field is IR.EntityField
+      field is IR_Legacy.EntityField
     }
 
     IteratorSequence(entityFields)
-      .lazy.map { unsafeDowncast($0, to: IR.EntityField.self) }
+      .lazy.map { unsafeDowncast($0, to: IR_Legacy.EntityField.self) }
       .forEach { field in
         let formattedTypeName = field.formattedSelectionSetName(with: config.pluralizer)
         if let existingFieldName = typeNamesForEntityFields[formattedTypeName] {

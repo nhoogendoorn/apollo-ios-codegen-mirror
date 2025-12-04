@@ -1,6 +1,6 @@
 import Foundation
-import IR
-import GraphQLCompiler
+import IR_Legacy
+import GraphQLCompiler_Legacy
 
 /// Generates a file providing the ability to mock a GraphQLObject for testing purposes.
 struct MockObjectFileGenerator: FileGenerator {

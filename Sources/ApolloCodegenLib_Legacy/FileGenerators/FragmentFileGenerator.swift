@@ -1,10 +1,10 @@
 import Foundation
-import IR
+import IR_Legacy
 
 /// Generates a file containing the Swift representation of a [GraphQL Fragment](https://spec.graphql.org/draft/#sec-Language.Fragments).
 struct FragmentFileGenerator: FileGenerator {
   /// Source IR fragment.
-  let irFragment: IR.NamedFragment
+  let irFragment: IR_Legacy.NamedFragment
   /// Shared codegen configuration.
   let config: ApolloCodegen.ConfigurationContext
   

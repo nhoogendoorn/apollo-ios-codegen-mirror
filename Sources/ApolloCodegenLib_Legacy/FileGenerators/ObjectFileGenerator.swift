@@ -1,6 +1,6 @@
 import Foundation
-import GraphQLCompiler
-import TemplateString
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 /// Generates a file containing the Swift representation of a [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).
 struct ObjectFileGenerator: FileGenerator {

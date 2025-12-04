@@ -1,6 +1,6 @@
 import Foundation
-import GraphQLCompiler
-import TemplateString
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 struct OneOfInputObjectTemplate: TemplateRenderer {
     

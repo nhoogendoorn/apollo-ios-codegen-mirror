@@ -1,6 +1,6 @@
-import GraphQLCompiler
-import TemplateString
-import Utilities
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
+import Utilities_Legacy
 
 @dynamicMemberLookup
 public class SelectionSet: Hashable, CustomDebugStringConvertible {
@@ -17,7 +17,7 @@ public class SelectionSet: Hashable, CustomDebugStringConvertible {
 
     /// Indicates if the `SelectionSet` was created directly due to a selection set in the user defined `.graphql` definition file.
     ///
-    /// If `false`, the selection set was artificially created by the IR. Currently, the only reason
+    /// If `false`, the selection set was artificially created by the IR_Legacy. Currently, the only reason
     /// for this is a `CompositeInlineFragment` created during calculation of merged selections for field merging.
     public var isUserDefined: Bool { derivedFromMergedSources.isEmpty }
 

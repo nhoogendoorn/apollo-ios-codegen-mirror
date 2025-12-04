@@ -1,4 +1,4 @@
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 extension ValidationOptions {
   init(config: ApolloCodegen.ConfigurationContext) {

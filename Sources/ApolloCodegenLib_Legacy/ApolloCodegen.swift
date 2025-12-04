@@ -1,8 +1,8 @@
 import Foundation
-import IR
-import GraphQLCompiler
+import IR_Legacy
+import GraphQLCompiler_Legacy
 import OrderedCollections
-import Utilities
+import Utilities_Legacy
 
 // Only available on macOS
 #if os(macOS)

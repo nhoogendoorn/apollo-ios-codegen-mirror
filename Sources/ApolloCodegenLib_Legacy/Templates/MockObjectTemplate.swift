@@ -1,7 +1,7 @@
 import Foundation
-import IR
-import GraphQLCompiler
-import TemplateString
+import IR_Legacy
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 struct MockObjectTemplate: TemplateRenderer {
   /// IR representation of source [GraphQL Object](https://spec.graphql.org/draft/#sec-Objects).

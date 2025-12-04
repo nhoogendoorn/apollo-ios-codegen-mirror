@@ -1,5 +1,5 @@
 import Foundation
-import IR
+import IR_Legacy
 
 /// A configuration object that defines behavior for code generation.
 public struct ApolloCodegenConfiguration: Codable, Equatable {
@@ -1433,7 +1433,7 @@ extension ApolloCodegenConfiguration.OperationsFileOutput {
 
 extension ApolloCodegenConfiguration {
   /// Determine whether the operations files are output to the schema types module.
-  func shouldGenerateSelectionSetInitializers(for operation: IR.Operation) -> Bool {
+  func shouldGenerateSelectionSetInitializers(for operation: IR_Legacy.Operation) -> Bool {
     if operation.definition.isLocalCacheMutation {
       return true
 
@@ -1450,7 +1450,7 @@ extension ApolloCodegenConfiguration {
   }
 
   /// Determine whether the operations files are output to the schema types module.
-  func shouldGenerateSelectionSetInitializers(for fragment: IR.NamedFragment) -> Bool {
+  func shouldGenerateSelectionSetInitializers(for fragment: IR_Legacy.NamedFragment) -> Bool {
     if fragment.definition.isLocalCacheMutation {
       return true
 

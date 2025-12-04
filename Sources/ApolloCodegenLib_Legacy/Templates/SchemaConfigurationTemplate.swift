@@ -1,5 +1,5 @@
 import Foundation
-import TemplateString
+import TemplateString_Legacy
 
 /// Renders the Cache Key Resolution extension for a generated schema.
 struct SchemaConfigurationTemplate: TemplateRenderer {

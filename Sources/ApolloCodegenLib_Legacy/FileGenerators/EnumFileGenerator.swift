@@ -1,5 +1,5 @@
 import Foundation
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 /// Generates a file containing the Swift representation of a [GraphQL Enum](https://spec.graphql.org/draft/#sec-Enums).
 struct EnumFileGenerator: FileGenerator {

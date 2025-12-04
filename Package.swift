@@ -30,18 +30,18 @@ let package = Package(
     .target(
       name: "ApolloCodegenLib_Legacy",
       dependencies: [
-        "GraphQLCompiler",
-        "IR",
-        "TemplateString",
+        "GraphQLCompiler_Legacy",
+        "IR_Legacy",
+        "TemplateString_Legacy",
         .product(name: "InflectorKit", package: "InflectorKit"),
         .product(name: "OrderedCollections", package: "swift-collections")
       ],
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "GraphQLCompiler",
+      name: "GraphQLCompiler_Legacy",
       dependencies: [
-        "TemplateString",
+        "TemplateString_Legacy",
         .product(name: "OrderedCollections", package: "swift-collections")
       ],
       exclude: [
@@ -50,22 +50,22 @@ let package = Package(
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "IR",
+      name: "IR_Legacy",
       dependencies: [
-        "GraphQLCompiler",
-        "TemplateString",
-        "Utilities",
-        .product(name: "OrderedCollections", package: "swift-collections")        
+        "GraphQLCompiler_Legacy",
+        "TemplateString_Legacy",
+        "Utilities_Legacy",
+        .product(name: "OrderedCollections", package: "swift-collections")
       ],
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "TemplateString",
+      name: "TemplateString_Legacy",
       dependencies: [],
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "Utilities",
+      name: "Utilities_Legacy",
       dependencies: [],
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),

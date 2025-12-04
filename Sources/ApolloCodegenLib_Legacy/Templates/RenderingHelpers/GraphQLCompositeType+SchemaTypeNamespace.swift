@@ -1,4 +1,4 @@
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 extension GraphQLCompositeType {
   var schemaTypesNamespace: String {

@@ -1,4 +1,4 @@
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 import OrderedCollections
 
 public class Operation: Definition {

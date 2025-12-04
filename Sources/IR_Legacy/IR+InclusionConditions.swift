@@ -1,6 +1,6 @@
 import OrderedCollections
-import GraphQLCompiler
-import TemplateString
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 /// A condition representing an `@include` or `@skip` directive to determine if a field
 /// or fragment should be included.

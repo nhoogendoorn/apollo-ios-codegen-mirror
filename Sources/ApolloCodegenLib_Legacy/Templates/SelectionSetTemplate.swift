@@ -1,13 +1,13 @@
-import GraphQLCompiler
-import IR
+import GraphQLCompiler_Legacy
+import IR_Legacy
 import InflectorKit
 import OrderedCollections
-import TemplateString
-import Utilities
+import TemplateString_Legacy
+import Utilities_Legacy
 
 struct SelectionSetTemplate {
 
-  let definition: any IR.Definition
+  let definition: any IR_Legacy.Definition
   let generateInitializers: Bool
   let config: ApolloCodegen.ConfigurationContext
   let nonFatalErrorRecorder: ApolloCodegen.NonFatalError.Recorder
@@ -18,7 +18,7 @@ struct SelectionSetTemplate {
   var isMutable: Bool { definition.isMutable }
 
   init(
-    definition: any IR.Definition,
+    definition: any IR_Legacy.Definition,
     generateInitializers: Bool,
     config: ApolloCodegen.ConfigurationContext,
     nonFatalErrorRecorder: ApolloCodegen.NonFatalError.Recorder,
@@ -36,12 +36,12 @@ struct SelectionSetTemplate {
   // MARK: - SelectionSetContext
 
   struct SelectionSetContext {
-    let selectionSet: IR.ComputedSelectionSet
+    let selectionSet: IR_Legacy.ComputedSelectionSet
     let validationContext: SelectionSetValidationContext
   }
 
   private func createSelectionSetContext(
-    for selectionSet: IR.SelectionSet,
+    for selectionSet: IR_Legacy.SelectionSet,
     inParent context: SelectionSetContext?
   ) -> SelectionSetContext {
     let computedSelectionSet = ComputedSelectionSet.Builder(
@@ -146,7 +146,7 @@ struct SelectionSetTemplate {
   }
 
   // MARK: - Selection Set Name Documentation
-  func SelectionSetNameDocumentation(_ selectionSet: IR.ComputedSelectionSet) -> TemplateString {
+  func SelectionSetNameDocumentation(_ selectionSet: IR_Legacy.ComputedSelectionSet) -> TemplateString {
     """
     /// \(SelectionSetNameGenerator.generatedSelectionSetName(
           for: selectionSet.typeInfo,
@@ -217,7 +217,7 @@ struct SelectionSetTemplate {
     "\(renderAccessControl())\(isMutable ? "var" : "let") __data: DataDict"
   }
 
-  private func RootEntityTypealias(_ selectionSet: IR.ComputedSelectionSet) -> TemplateString {
+  private func RootEntityTypealias(_ selectionSet: IR_Legacy.ComputedSelectionSet) -> TemplateString {
     guard !selectionSet.isEntityRoot else { return "" }
     let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
       for: selectionSet.typeInfo,
@@ -240,7 +240,7 @@ struct SelectionSetTemplate {
   }
 
   private func MergedSourcesTemplate(
-    _ mergedSources: OrderedSet<IR.MergedSelections.MergedSource>
+    _ mergedSources: OrderedSet<IR_Legacy.MergedSelections.MergedSource>
   ) -> TemplateString {
     return """
       public static var __mergedSources: [any \(config.ApolloAPITargetName).SelectionSet.Type] { [
@@ -264,7 +264,7 @@ struct SelectionSetTemplate {
   typealias DeprecatedArgument = (field: String, arg: String, reason: String)
 
   private func DirectSelectionsMetadataTemplate(
-    _ selections: IR.DirectSelections.ReadOnly,
+    _ selections: IR_Legacy.DirectSelections.ReadOnly,
     scope: ScopeDescriptor
   ) -> TemplateString {
     let groupedSelections = selections.groupedByInclusionCondition
@@ -300,7 +300,7 @@ struct SelectionSetTemplate {
       \(selectionsTemplate)
       """
 
-    func shouldIncludeTypenameSelection(for scope: IR.ScopeDescriptor) -> Bool {
+    func shouldIncludeTypenameSelection(for scope: IR_Legacy.ScopeDescriptor) -> Bool {
       var isRootType: Bool {
         scope.allTypesInSchema.schemaRootTypes.allRootTypes.contains(scope.type)
       }
@@ -308,7 +308,7 @@ struct SelectionSetTemplate {
     }
 
     func renderedSelections(
-      _ selections: IR.DirectSelections.ReadOnly,
+      _ selections: IR_Legacy.DirectSelections.ReadOnly,
       _ deprecatedArguments: inout [DeprecatedArgument]?
     ) -> [TemplateString] {
       selections.fields.values.map { FieldSelectionTemplate($0, &deprecatedArguments) }
@@ -317,9 +317,9 @@ struct SelectionSetTemplate {
     }
 
     func renderedConditionalSelectionGroup(
-      _ conditions: AnyOf<IR.InclusionConditions>,
-      _ selections: IR.DirectSelections.ReadOnly,
-      in scope: IR.ScopeDescriptor,
+      _ conditions: AnyOf<IR_Legacy.InclusionConditions>,
+      _ selections: IR_Legacy.DirectSelections.ReadOnly,
+      in scope: IR_Legacy.ScopeDescriptor,
       _ deprecatedArguments: inout [DeprecatedArgument]?
     ) -> TemplateString {
       let renderedSelections = renderedSelections(selections, &deprecatedArguments)
@@ -335,7 +335,7 @@ struct SelectionSetTemplate {
   }
 
   private func FieldSelectionTemplate(
-    _ field: IR.Field,
+    _ field: IR_Legacy.Field,
     _ deprecatedArguments: inout [DeprecatedArgument]?
   ) -> TemplateString {
     """
@@ -354,13 +354,13 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func typeName(for field: IR.Field, forceOptional: Bool = false) -> String {
+  private func typeName(for field: IR_Legacy.Field, forceOptional: Bool = false) -> String {
     let fieldName: String
     switch field {
-    case let scalarField as IR.ScalarField:
+    case let scalarField as IR_Legacy.ScalarField:
       fieldName = scalarField.type.rendered(as: .selectionSetField(), config: config.config)
 
-    case let entityField as IR.EntityField:
+    case let entityField as IR_Legacy.EntityField:
       fieldName = self.nameCache.selectionSetType(for: entityField)
 
     default:
@@ -390,7 +390,7 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func InlineFragmentSelectionTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString
+  private func InlineFragmentSelectionTemplate(_ inlineFragment: IR_Legacy.SelectionSet) -> TemplateString
   {
     if let deferCondition = inlineFragment.deferCondition {
       return DeferredInlineFragmentSelectionTemplate(deferCondition)
@@ -402,7 +402,7 @@ struct SelectionSetTemplate {
     }
   }
 
-  private func FragmentSelectionTemplate(_ fragment: IR.NamedFragmentSpread) -> TemplateString {
+  private func FragmentSelectionTemplate(_ fragment: IR_Legacy.NamedFragmentSpread) -> TemplateString {
     if let deferCondition = fragment.typeInfo.deferCondition {
       return DeferredNamedFragmentSelectionTemplate(
         deferCondition: deferCondition,
@@ -428,7 +428,7 @@ struct SelectionSetTemplate {
 
   private func DeferredNamedFragmentSelectionTemplate(
     deferCondition: CompilationResult.DeferCondition,
-    fragment: IR.NamedFragmentSpread
+    fragment: IR_Legacy.NamedFragmentSpread
   ) -> TemplateString {
     """
     .deferred(\
@@ -451,8 +451,8 @@ struct SelectionSetTemplate {
   }
 
   private func FieldAccessorTemplate(
-    _ field: IR.Field,
-    in scope: IR.ScopeDescriptor
+    _ field: IR_Legacy.Field,
+    in scope: IR_Legacy.ScopeDescriptor
   ) -> TemplateString {
     return """
       \(documentation: field.underlyingField.documentation, config: config)
@@ -479,7 +479,7 @@ struct SelectionSetTemplate {
   }
 
   private func InlineFragmentAccessorTemplate(
-    _ inlineFragment: IR.ComputedSelectionSet
+    _ inlineFragment: IR_Legacy.ComputedSelectionSet
   ) -> TemplateString {
     guard !inlineFragment.typeInfo.scope.isDeferred else { return "" }
 
@@ -573,8 +573,8 @@ struct SelectionSetTemplate {
   }
 
   private func NamedFragmentAccessorTemplate(
-    _ fragment: IR.NamedFragmentSpread,
-    in scope: IR.ScopeDescriptor
+    _ fragment: IR_Legacy.NamedFragmentSpread,
+    in scope: IR_Legacy.ScopeDescriptor
   ) -> TemplateString {
     let name = fragment.definition.name
     let propertyName = name.firstLowercased
@@ -662,8 +662,8 @@ struct SelectionSetTemplate {
   }
 
   private func InitializerParameterTemplate(
-    _ field: IR.Field,
-    scope: IR.ScopeDescriptor
+    _ field: IR_Legacy.Field,
+    scope: IR_Legacy.ScopeDescriptor
   ) -> TemplateString {
     let isOptional: Bool = field.type.isNullable || field.isConditionallyIncluded(in: scope)
     return """
@@ -691,7 +691,7 @@ struct SelectionSetTemplate {
   }
 
   private func InitializerDataDictFieldTemplate(
-    _ field: IR.Field
+    _ field: IR_Legacy.Field
   ) -> TemplateString {
     let isEntityField: Bool = {
       switch field.type.innerType {
@@ -775,12 +775,12 @@ struct SelectionSetTemplate {
   ) -> TemplateString {
     let selectionSet = context.selectionSet
     let allFields = selectionSet.makeFieldIterator { field in
-      field is IR.EntityField
+      field is IR_Legacy.EntityField
     }
 
     return """
       \(IteratorSequence(allFields).compactMap { field in
-        let field = unsafeDowncast(field, to: IR.EntityField.self)
+        let field = unsafeDowncast(field, to: IR_Legacy.EntityField.self)
         let childContext = createSelectionSetContext(for: field.selectionSet, inParent: context)
         return render(childEntity: childContext)
       }, separator: "\n\n")
@@ -808,7 +808,7 @@ private class SelectionSetNameCache {
     self.config = config
   }
 
-  func selectionSetName(for typeInfo: IR.SelectionSet.TypeInfo) -> String {
+  func selectionSetName(for typeInfo: IR_Legacy.SelectionSet.TypeInfo) -> String {
     if let name = generatedSelectionSetNames[typeInfo] { return name }
 
     let name = computeGeneratedSelectionSetName(for: typeInfo)
@@ -817,7 +817,7 @@ private class SelectionSetNameCache {
   }
 
   // MARK: Entity Field
-  func selectionSetType(for field: IR.EntityField) -> String {
+  func selectionSetType(for field: IR_Legacy.EntityField) -> String {
     field.type.rendered(
       as: .selectionSetField(),
       replacingNamedTypeWith: selectionSetName(for: field.selectionSet.typeInfo),
@@ -826,7 +826,7 @@ private class SelectionSetNameCache {
   }
 
   // MARK: Name Computation
-  func computeGeneratedSelectionSetName(for typeInfo: IR.SelectionSet.TypeInfo) -> String {
+  func computeGeneratedSelectionSetName(for typeInfo: IR_Legacy.SelectionSet.TypeInfo) -> String {
     let location = typeInfo.entity.location
     return location.fieldPath?.last.value
       .formattedSelectionSetName(with: config.pluralizer)
@@ -837,7 +837,7 @@ private class SelectionSetNameCache {
 
 // MARK: - Helper Extensions
 
-extension IR.ComputedSelectionSet {
+extension IR_Legacy.ComputedSelectionSet {
 
   fileprivate var isCompositeInlineFragment: Bool {
     return !self.isEntityRoot && !self.isUserDefined && (direct?.isEmpty ?? true)
@@ -867,7 +867,7 @@ extension IR.ComputedSelectionSet {
 
 }
 
-extension IR.SelectionSet.TypeInfo {
+extension IR_Legacy.SelectionSet.TypeInfo {
 
   fileprivate var renderedTypeName: String {
     self.scope.scopePath.last.value.selectionSetNameComponent
@@ -875,10 +875,10 @@ extension IR.SelectionSet.TypeInfo {
 
 }
 
-extension IR.MergedSelections.MergedSource {
+extension IR_Legacy.MergedSelections.MergedSource {
 
   fileprivate func generatedSelectionSetNamePath(
-    from targetTypeInfo: IR.SelectionSet.TypeInfo,
+    from targetTypeInfo: IR_Legacy.SelectionSet.TypeInfo,
     pluralizer: Pluralizer
   ) -> String {
     if let fragment = fragment {
@@ -975,7 +975,7 @@ extension IR.MergedSelections.MergedSource {
   }
 
   private func generatedSelectionSetNameForMergedEntity(
-    in fragment: IR.NamedFragment,
+    in fragment: IR_Legacy.NamedFragment,
     pluralizer: Pluralizer
   ) -> String {
     var selectionSetNameComponents: [String] = [fragment.generatedDefinitionName]
@@ -1048,7 +1048,7 @@ struct SelectionSetNameGenerator {
 
   static func generatedSelectionSetName(
     for selectionSet: ComputedSelectionSet,
-    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
+    to toNode: LinkedList<IR_Legacy.ScopeCondition>.Node? = nil,
     format: Format,
     pluralizer: Pluralizer
   ) -> String {
@@ -1061,8 +1061,8 @@ struct SelectionSetNameGenerator {
   }
 
   static func generatedSelectionSetName(
-    for mergedSource: IR.MergedSelections.MergedSource,
-    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
+    for mergedSource: IR_Legacy.MergedSelections.MergedSource,
+    to toNode: LinkedList<IR_Legacy.ScopeCondition>.Node? = nil,
     format: Format,
     pluralizer: Pluralizer
   ) -> String {
@@ -1075,8 +1075,8 @@ struct SelectionSetNameGenerator {
   }
 
   static func generatedSelectionSetName(
-    for typeInfo: IR.SelectionSet.TypeInfo,
-    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
+    for typeInfo: IR_Legacy.SelectionSet.TypeInfo,
+    to toNode: LinkedList<IR_Legacy.ScopeCondition>.Node? = nil,
     format: Format,
     pluralizer: Pluralizer
   ) -> String {
@@ -1111,9 +1111,9 @@ struct SelectionSetNameGenerator {
   }
 
   static func generatedSelectionSetName(
-    from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
-    to endingNode: LinkedList<IR.ScopeCondition>.Node? = nil,
-    withFieldPath fieldPathNode: IR.Entity.Location.FieldPath.Node?,
+    from typePathNode: LinkedList<IR_Legacy.ScopeDescriptor>.Node,
+    to endingNode: LinkedList<IR_Legacy.ScopeCondition>.Node? = nil,
+    withFieldPath fieldPathNode: IR_Legacy.Entity.Location.FieldPath.Node?,
     removingFirst: Bool = false,
     pluralizer: Pluralizer
   ) -> String {
@@ -1123,7 +1123,7 @@ struct SelectionSetNameGenerator {
     // Because the Location's field path starts on the first field (not the location's source),
     // If the typePath is starting from the root entity (ie. is the list's head node, we do not
     // start using the field path until the second entity node.
-    var currentFieldPathNode: IR.Entity.Location.FieldPath.Node? =
+    var currentFieldPathNode: IR_Legacy.Entity.Location.FieldPath.Node? =
       typePathNode.isHead ? nil : fieldPathNode
 
     func advanceToNextEntity() {
@@ -1171,13 +1171,13 @@ struct SelectionSetNameGenerator {
   }
 
   fileprivate struct ConditionPath {
-    static func path(for conditions: LinkedList<IR.ScopeCondition>.Node) -> String {
+    static func path(for conditions: LinkedList<IR_Legacy.ScopeCondition>.Node) -> String {
       conditions.map(\.selectionSetNameComponent).joined(separator: ".")
     }
   }
 }
 
-extension IR.ScopeCondition {
+extension IR_Legacy.ScopeCondition {
 
   fileprivate var selectionSetNameComponent: String {
     if let deferCondition {
@@ -1195,7 +1195,7 @@ extension IR.ScopeCondition {
 
 }
 
-extension AnyOf where T == IR.InclusionConditions {
+extension AnyOf where T == IR_Legacy.InclusionConditions {
   fileprivate var conditionVariableExpression: TemplateString {
     """
     \(elements.map {
@@ -1205,7 +1205,7 @@ extension AnyOf where T == IR.InclusionConditions {
   }
 }
 
-extension IR.InclusionConditions {
+extension IR_Legacy.InclusionConditions {
   fileprivate func conditionVariableExpression(
     wrapInParenthesisIfMultiple: Bool = false
   ) -> TemplateString {
@@ -1222,7 +1222,7 @@ extension IR.InclusionConditions {
   }
 }
 
-extension IR.InclusionCondition {
+extension IR_Legacy.InclusionCondition {
   fileprivate var conditionVariableExpression: TemplateString {
     """
     \(if: isInverted, "!")"\(variable)"
@@ -1236,14 +1236,14 @@ extension IR.InclusionCondition {
   }
 }
 
-extension IR.Field {
+extension IR_Legacy.Field {
   fileprivate var isCustomScalar: Bool {
     guard let scalar = self.type.namedType as? GraphQLScalarType else { return false }
 
     return scalar.isCustomScalar
   }
 
-  fileprivate func isConditionallyIncluded(in scope: IR.ScopeDescriptor) -> Bool {
+  fileprivate func isConditionallyIncluded(in scope: IR_Legacy.ScopeDescriptor) -> Bool {
     guard let conditions = self.inclusionConditions else { return false }
     return !scope.matches(conditions)
   }

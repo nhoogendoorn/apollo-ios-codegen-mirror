@@ -1,19 +1,19 @@
-import IR
+import IR_Legacy
 import OrderedCollections
 
-extension IR.ComputedSelectionSet {
+extension IR_Legacy.ComputedSelectionSet {
 
   typealias FieldIterator =
-  SelectionsIterator<OrderedDictionary<String, IR.Field>.Values>
+  SelectionsIterator<OrderedDictionary<String, IR_Legacy.Field>.Values>
 
   typealias InlineFragmentIterator =
-  SelectionsIterator<OrderedDictionary<ScopeCondition, IR.InlineFragmentSpread>.Values>
+  SelectionsIterator<OrderedDictionary<ScopeCondition, IR_Legacy.InlineFragmentSpread>.Values>
 
   typealias NamedFragmentIterator =
-  SelectionsIterator<OrderedDictionary<String, IR.NamedFragmentSpread>.Values>
+  SelectionsIterator<OrderedDictionary<String, IR_Legacy.NamedFragmentSpread>.Values>
 
   func makeFieldIterator(
-    filter: ((IR.Field) -> Bool)? = nil
+    filter: ((IR_Legacy.Field) -> Bool)? = nil
   ) -> FieldIterator {
     SelectionsIterator(
       direct: direct?.fields.values,
@@ -23,7 +23,7 @@ extension IR.ComputedSelectionSet {
   }
 
   func makeInlineFragmentIterator(
-    filter: ((IR.InlineFragmentSpread) -> Bool)? = nil
+    filter: ((IR_Legacy.InlineFragmentSpread) -> Bool)? = nil
   ) -> InlineFragmentIterator {
     SelectionsIterator(
       direct: direct?.inlineFragments.values,
@@ -33,7 +33,7 @@ extension IR.ComputedSelectionSet {
   }
 
   func makeNamedFragmentIterator(
-    filter: ((IR.NamedFragmentSpread) -> Bool)? = nil
+    filter: ((IR_Legacy.NamedFragmentSpread) -> Bool)? = nil
   ) -> NamedFragmentIterator {
     SelectionsIterator(
       direct: direct?.namedFragments.values,

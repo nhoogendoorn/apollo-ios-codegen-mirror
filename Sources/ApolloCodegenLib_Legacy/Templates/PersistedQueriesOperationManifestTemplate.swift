@@ -1,5 +1,5 @@
 import Foundation
-import TemplateString
+import TemplateString_Legacy
 
 /// Provides the format to output an operation manifest file used for persisted queries.
 struct PersistedQueriesOperationManifestTemplate: OperationManifestTemplate {

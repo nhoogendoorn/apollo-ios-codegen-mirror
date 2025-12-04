@@ -1,5 +1,5 @@
 import Foundation
-import TemplateString
+import TemplateString_Legacy
 
 public protocol GraphQLNamedItem {
   var name: GraphQLName { get }

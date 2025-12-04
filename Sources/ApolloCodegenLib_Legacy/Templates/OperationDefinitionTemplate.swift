@@ -1,13 +1,13 @@
-import IR
-import GraphQLCompiler
-import TemplateString
+import IR_Legacy
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 import OrderedCollections
 
 /// Provides the format to convert a [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations)
 /// into Swift code.
 struct OperationDefinitionTemplate: OperationTemplateRenderer {
   /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
-  let operation: IR.Operation
+  let operation: IR_Legacy.Operation
 
   /// The persisted query identifier for the ``operation``.
   let operationIdentifier: String?

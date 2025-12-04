@@ -1,7 +1,7 @@
 import Foundation
 import OrderedCollections
-import GraphQLCompiler
-import Utilities
+import GraphQLCompiler_Legacy
+import Utilities_Legacy
 
 class RootFieldBuilder {
   struct Result {

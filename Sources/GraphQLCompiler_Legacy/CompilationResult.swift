@@ -1,5 +1,5 @@
 import JavaScriptCore
-import TemplateString
+import TemplateString_Legacy
 import OrderedCollections
 
 /// The output of the frontend compiler.

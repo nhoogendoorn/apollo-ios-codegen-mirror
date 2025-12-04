@@ -1,10 +1,10 @@
-import IR
+import IR_Legacy
 import OrderedCollections
-import TemplateString
+import TemplateString_Legacy
 
 struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   /// IR representation of source [GraphQL Operation](https://spec.graphql.org/draft/#sec-Language.Operations).
-  let operation: IR.Operation
+  let operation: IR_Legacy.Operation
 
   let config: ApolloCodegen.ConfigurationContext
 

@@ -1,4 +1,4 @@
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 protocol DefaultMockValueProviding {
   func defaultMockValue(config: ApolloCodegen.ConfigurationContext) -> String

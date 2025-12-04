@@ -1,6 +1,6 @@
 import Foundation
-import GraphQLCompiler
-import Utilities
+import GraphQLCompiler_Legacy
+import Utilities_Legacy
 
 public class DefinitionEntityStorage {
   let sourceDefinition: Entity.Location.SourceDefinition

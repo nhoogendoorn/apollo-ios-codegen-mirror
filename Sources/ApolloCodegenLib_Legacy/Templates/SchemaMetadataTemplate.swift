@@ -1,12 +1,12 @@
 import Foundation
-import IR
-import TemplateString
+import IR_Legacy
+import TemplateString_Legacy
 
 /// Provides the format to define a schema in Swift code. The schema represents metadata used by
 /// the GraphQL executor at runtime to convert response data into corresponding Swift types.
 struct SchemaMetadataTemplate: TemplateRenderer {
   // IR representation of source GraphQL schema.
-  let schema: IR.Schema
+  let schema: IR_Legacy.Schema
 
   let config: ApolloCodegen.ConfigurationContext
 
@@ -72,7 +72,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     return protocolDefinition(prefix: "\(schemaNamespace)_", schemaNamespace: schemaNamespace)
   }
 
-  init(schema: IR.Schema, config: ApolloCodegen.ConfigurationContext) {
+  init(schema: IR_Legacy.Schema, config: ApolloCodegen.ConfigurationContext) {
     self.schema = schema
     self.schemaNamespace = config.schemaNamespace.firstUppercased
     self.config = config

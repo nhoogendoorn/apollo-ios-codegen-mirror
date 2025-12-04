@@ -1,6 +1,6 @@
 import Foundation
 import OrderedCollections
-import Utilities
+import Utilities_Legacy
 
 public class DirectSelections: Equatable, CustomDebugStringConvertible {
 
@@ -162,7 +162,7 @@ public class DirectSelections: Equatable, CustomDebugStringConvertible {
   // MARK: -
 
   func updateParentScopePath(to newParentScopePath: LinkedList<ScopeDescriptor>) {
-    for case let field as IR.EntityField in fields.values {
+    for case let field as IR_Legacy.EntityField in fields.values {
       field.selectionSet.updateScopePath(
         to: newParentScopePath.appending(field.selectionSet.typeInfo.scope)
       )

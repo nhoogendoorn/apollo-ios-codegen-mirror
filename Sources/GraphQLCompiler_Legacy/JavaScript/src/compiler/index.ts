@@ -47,9 +47,9 @@ function filePathForNode(node: ASTNode): string | undefined {
 }
 
 export interface CompilationResult {
-  rootTypes: ir.RootTypeDefinition;
-  operations: ir.OperationDefinition[];
-  fragments: ir.FragmentDefinition[];
+  rootTypes: IR_Legacy.RootTypeDefinition;
+  operations: IR_Legacy.OperationDefinition[];
+  fragments: IR_Legacy.FragmentDefinition[];
   referencedTypes: GraphQLNamedType[];
   schemaDocumentation: string | undefined;
 }
@@ -70,8 +70,8 @@ export function compileToIR(
     fragmentNodeMap.set(definitionNode.name.value, definitionNode);
   }
 
-  const operations: ir.OperationDefinition[] = [];
-  const fragmentMap = new Map<String, ir.FragmentDefinition>();
+  const operations: IR_Legacy.OperationDefinition[] = [];
+  const fragmentMap = new Map<String, IR_Legacy.FragmentDefinition>();
   const referencedTypes = new Set<GraphQLNamedType>();
   const reduceSchemaTypes: boolean = reduceGeneratedSchemaTypes
 
@@ -80,7 +80,7 @@ export function compileToIR(
     throw new GraphQLError("GraphQL Schema must contain a 'query' root type definition.", { });
   }
 
-  const rootTypes: ir.RootTypeDefinition = {
+  const rootTypes: IR_Legacy.RootTypeDefinition = {
     queryType: queryType,
     mutationType: schema.getMutationType() ?? undefined,
     subscriptionType: schema.getSubscriptionType() ?? undefined
@@ -165,7 +165,7 @@ export function compileToIR(
     return false;
   }
 
-  function getFragment(name: string): ir.FragmentDefinition | undefined {
+  function getFragment(name: string): IR_Legacy.FragmentDefinition | undefined {
     let fragment = fragmentMap.get(name);
     if (fragment) return fragment;
 
@@ -182,7 +182,7 @@ export function compileToIR(
 
   function compileOperation(
     operationDefinition: OperationDefinitionNode
-  ): ir.OperationDefinition {
+  ): IR_Legacy.OperationDefinition {
     if (!operationDefinition.name) {
       throw new GraphQLError("Operations should be named", { nodes: operationDefinition });
     }
@@ -190,7 +190,7 @@ export function compileToIR(
     const filePath = filePathForNode(operationDefinition);
     const name = operationDefinition.name.value;
     const operationType = operationDefinition.operation;
-    const referencedFragments = new Set<ir.FragmentDefinition>();
+    const referencedFragments = new Set<IR_Legacy.FragmentDefinition>();
 
     const variables = (operationDefinition.variableDefinitions || []).map(
       (node) => {
@@ -252,7 +252,7 @@ export function compileToIR(
 
   function compileFragment(
     fragmentDefinition: FragmentDefinitionNode
-  ): ir.FragmentDefinition {
+  ): IR_Legacy.FragmentDefinition {
     const name = fragmentDefinition.name.value;
 
     const filePath = filePathForNode(fragmentDefinition);
@@ -260,7 +260,7 @@ export function compileToIR(
       fragmentDefinition,
       legacySafelistingCompatibleOperations
     ));
-    const referencedFragments = new Set<ir.FragmentDefinition>();
+    const referencedFragments = new Set<IR_Legacy.FragmentDefinition>();
 
     const typeCondition = typeFromAST(
       schema,
@@ -291,7 +291,7 @@ export function compileToIR(
   }
 
   function overrideAsLocalCacheMutation(
-    fragments: ir.FragmentDefinition[]
+    fragments: IR_Legacy.FragmentDefinition[]
   ) {
     fragments.forEach(element => {
       element.overrideAsLocalCacheMutation = true
@@ -302,8 +302,8 @@ export function compileToIR(
   function compileSelectionSet(
     selectionSetNode: SelectionSetNode,
     parentType: GraphQLCompositeType,
-    operationReferencedFragments: Set<ir.FragmentDefinition>,
-  ): ir.SelectionSet {
+    operationReferencedFragments: Set<IR_Legacy.FragmentDefinition>,
+  ): IR_Legacy.SelectionSet {
     return {
       parentType,
       selections: selectionSetNode.selections
@@ -317,8 +317,8 @@ export function compileToIR(
   function compileSelection(
     selectionNode: SelectionNode,
     parentType: GraphQLCompositeType,
-    operationReferencedFragments: Set<ir.FragmentDefinition>,
-  ): ir.Selection | undefined {
+    operationReferencedFragments: Set<IR_Legacy.FragmentDefinition>,
+  ): IR_Legacy.Selection | undefined {
     const [directives, inclusionConditions] = compileDirectives(selectionNode.directives) ?? [undefined, undefined];
 
     switch (selectionNode.kind) {
@@ -341,9 +341,9 @@ export function compileToIR(
         addReferencedType(getNamedType(unwrappedFieldType));
 
         const { description, deprecationReason } = fieldDef;
-        const args: ir.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);
+        const args: IR_Legacy.Field["arguments"] = compileArguments(fieldDef, selectionNode.arguments);
 
-        let field: ir.Field = {
+        let field: IR_Legacy.Field = {
           kind: "Field",
           name,
           alias,
@@ -428,7 +428,7 @@ export function compileToIR(
 
         operationReferencedFragments.add(fragment);
 
-        const fragmentSpread: ir.FragmentSpread = {
+        const fragmentSpread: IR_Legacy.FragmentSpread = {
           kind: "FragmentSpread",
           fragment,
           inclusionConditions: inclusionConditions,
@@ -443,7 +443,7 @@ export function compileToIR(
     ...args:
     [fieldDef: GraphQLField<any, any, any>, args?: ReadonlyArray<ArgumentNode>] |
     [directiveDef: GraphQLDirective, args?: ReadonlyArray<ArgumentNode>]
-  ): ir.Argument[] | undefined {
+  ): IR_Legacy.Argument[] | undefined {
     const argDefs: ReadonlyArray<GraphQLArgument> = args[0].args
     return args[1] && args[1].length > 0
       ? args[1].map((arg) => {
@@ -472,10 +472,10 @@ export function compileToIR(
 
   function compileDirectives(
     directives?: ReadonlyArray<DirectiveNode>
-  ): [ir.Directive[], ir.InclusionCondition[]?] | undefined {
+  ): [IR_Legacy.Directive[], IR_Legacy.InclusionCondition[]?] | undefined {
     if (directives && directives.length > 0) {
-      const compiledDirectives: ir.Directive[] = [];
-      const inclusionConditions: ir.InclusionCondition[] = [];
+      const compiledDirectives: IR_Legacy.Directive[] = [];
+      const inclusionConditions: IR_Legacy.InclusionCondition[] = [];
 
       for (const directive of directives) {
         const name = directive.name.value;
@@ -512,7 +512,7 @@ export function compileToIR(
   function compileInclusionCondition(
     directiveNode: DirectiveNode,
     directiveDef: GraphQLDirective
-  ): ir.InclusionCondition | undefined {
+  ): IR_Legacy.InclusionCondition | undefined {
     if (directiveDef.name == "include" || directiveDef.name == "skip") {
       const condition = directiveNode.arguments?.[0].value;
       const isInverted = directiveDef.name == "skip";

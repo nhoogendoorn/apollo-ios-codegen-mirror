@@ -1,7 +1,7 @@
 import Foundation
-import IR
+import IR_Legacy
 import OrderedCollections
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 /// Generates a file providing the ability to mock the GraphQLUnionTypes in a schema
 /// for testing purposes.

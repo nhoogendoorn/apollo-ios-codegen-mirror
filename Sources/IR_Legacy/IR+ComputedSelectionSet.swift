@@ -1,24 +1,24 @@
 import Foundation
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 import OrderedCollections
-import Utilities
+import Utilities_Legacy
 
 /// A data structure representing the computed selections for a `SelectionSet`.
 /// This includes both the direct and merged selections.
 ///
 /// Because the computed merged selections are expected to have a large number of duplicated
-/// selections, they use a large amount of memory. Storing them on the `IR.SelectionSet` would
+/// selections, they use a large amount of memory. Storing them on the `IR_Legacy.SelectionSet` would
 /// retain them outside of the scope they are needed. Instead, we use a
 /// `ComputedSelectionSet.Builder` to compute them for the scope they are needed in, then release 
 /// them when we are done with them.
 @dynamicMemberLookup
 public struct ComputedSelectionSet {
 
-  public let direct: IR.DirectSelections.ReadOnly?
-  public let merged: IR.MergedSelections
+  public let direct: IR_Legacy.DirectSelections.ReadOnly?
+  public let merged: IR_Legacy.MergedSelections
 
   /// The `TypeInfo` for the selection set of the computed selections
-  public let typeInfo: IR.SelectionSet.TypeInfo
+  public let typeInfo: IR_Legacy.SelectionSet.TypeInfo
   
   /// Indicates if a field named `id` is selected as well as requiring that the parent type
   /// be identifiable.
@@ -68,7 +68,7 @@ extension ComputedSelectionSet {
     }
 
     public convenience init(
-      _ selectionSet: IR.SelectionSet,
+      _ selectionSet: IR_Legacy.SelectionSet,
       mergingStrategy: MergedSelections.MergingStrategy,
       entityStorage: DefinitionEntityStorage
     ) {

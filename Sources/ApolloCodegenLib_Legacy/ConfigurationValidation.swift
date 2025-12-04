@@ -1,5 +1,5 @@
-import GraphQLCompiler
-import IR
+import GraphQLCompiler_Legacy
+import IR_Legacy
 
 extension ApolloCodegen.ConfigurationContext {
 

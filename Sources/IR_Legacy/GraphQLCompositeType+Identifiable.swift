@@ -1,4 +1,4 @@
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 extension GraphQLCompositeType {
   /// Indicates if the type has a single keyField named `id`.

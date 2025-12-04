@@ -1,4 +1,4 @@
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 /// Represents a Named Fragment that has been "spread into" another SelectionSet using the
 /// spread operator (`...`).

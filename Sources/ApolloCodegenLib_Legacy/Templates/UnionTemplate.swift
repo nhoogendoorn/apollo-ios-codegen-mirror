@@ -1,6 +1,6 @@
 import Foundation
-import GraphQLCompiler
-import TemplateString
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
 
 /// Provides the format to convert a [GraphQL Union](https://spec.graphql.org/draft/#sec-Unions)
 /// into Swift code.

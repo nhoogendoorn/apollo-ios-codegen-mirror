@@ -1,8 +1,8 @@
-import TemplateString
-import GraphQLCompiler
-import IR
+import TemplateString_Legacy
+import GraphQLCompiler_Legacy
+import IR_Legacy
 
-extension IR.Definition {
+extension IR_Legacy.Definition {
 
   func renderedSelectionSetType(_ config: ApolloCodegen.ConfigurationContext) -> TemplateString {
     "\(config.schemaNamespace.firstUppercased).\(if: isMutable, "Mutable")SelectionSet"
@@ -40,7 +40,7 @@ extension CompilationResult.OperationDefinition {
   }
 }
 
-extension IR.Operation {
+extension IR_Legacy.Operation {
 
   var generatedDefinitionName: String {
     definition.generatedDefinitionName
@@ -54,7 +54,7 @@ extension CompilationResult.FragmentDefinition {
   }
 }
 
-extension IR.NamedFragment {
+extension IR_Legacy.NamedFragment {
 
   var generatedDefinitionName: String {
     definition.generatedDefinitionName

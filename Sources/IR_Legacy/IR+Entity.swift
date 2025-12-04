@@ -1,5 +1,5 @@
-import GraphQLCompiler
-import Utilities
+import GraphQLCompiler_Legacy
+import Utilities_Legacy
 
 /// Represents a concrete entity in an operation or fragment that fields are selected upon.
 ///

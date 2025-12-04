@@ -1,5 +1,5 @@
 import Foundation
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 protocol ScopedSelectionSetHashable {
 

@@ -1,5 +1,5 @@
 import Foundation
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 /// Generates a file containing the Swift representation of a
 /// [GraphQL Input Object](https://spec.graphql.org/draft/#sec-Input-Objects).

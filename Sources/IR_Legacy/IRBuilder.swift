@@ -1,5 +1,5 @@
 import OrderedCollections
-import GraphQLCompiler
+import GraphQLCompiler_Legacy
 
 public class IRBuilder {
 
