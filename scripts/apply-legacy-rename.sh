@@ -36,7 +36,12 @@ find Sources -type f -name '*.swift' -print0 | xargs -0 sed -i '' \
   -e 's/^import TemplateString$/import TemplateString_Legacy/' \
   -e 's/^import Utilities$/import Utilities_Legacy/' \
   -e 's/\([^A-Za-z0-9_]\)IR\./\1IR_Legacy./g' \
-  -e 's/\([^A-Za-z0-9_]\)GraphQLCompiler\./\1GraphQLCompiler_Legacy./g'
+  -e 's/\([^A-Za-z0-9_]\)GraphQLCompiler\./\1GraphQLCompiler_Legacy./g' \
+  -e 's/\([^A-Za-z0-9_]\)CodegenCLI\./\1CodegenCLI_Legacy./g'
+
+# NOTE: do not rewrite `TemplateString.` — `TemplateString` is also a public
+# struct (with nested `StringInterpolation`), so `.` after it is a type
+# member access, not a module prefix.
 
 # 3. Rewrite TS namespace refs in the JS compiler bridge.
 find Sources/GraphQLCompiler_Legacy/JavaScript/src -type f \
