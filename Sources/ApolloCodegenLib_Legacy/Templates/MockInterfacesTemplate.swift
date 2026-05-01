@@ -1,0 +1,26 @@
+import Foundation
+import OrderedCollections
+import GraphQLCompiler_Legacy
+import TemplateString_Legacy
+
+struct MockInterfacesTemplate: TemplateRenderer {
+
+  let graphqlInterfaces: OrderedSet<GraphQLInterfaceType>
+
+  let config: ApolloCodegen.ConfigurationContext
+
+  let target: TemplateTarget = .testMockFile
+
+  func renderBodyTemplate(
+    nonFatalErrorRecorder: ApolloCodegen.NonFatalError.Recorder
+  ) -> TemplateString {
+    TemplateString("""
+    \(accessControlModifier(for: .parent))extension MockObject {
+      \(graphqlInterfaces.map {
+      "typealias \($0.render(as: .typename)) = Interface"
+      }, separator: "\n")
+    }
+
+    """)
+  }
+}
